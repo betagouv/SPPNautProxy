@@ -1,0 +1,75 @@
+version: "3.7"
+
+services:
+  carting:
+    platform: linux/amd64
+    build: 
+      context: ./SPPNautCarting
+    env_file:
+      - ./SPPNautCarting/.env
+    expose: 
+      # Facultatif, car 8000 est exposé dans le Dockerfile
+      - 8000
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.carting.rule=Host(`carting.sppnaut.shom.fr`)"
+
+  spo:
+    platform: linux/amd64
+    build: 
+      context: ./SPPNautSPO
+    env_file:
+      - ./SPPNautSPO/PDFGenerator/http/.env
+    expose: 
+      # Facultatif, car 8080 est exposé dans le Dockerfile
+      - 8080
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.spo.rule=Host(`spo.sppnaut.shom.fr`)"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  traefik:
+    image: "traefik:v2.4"
+    container_name: "traefik"
+    command:
+      # Décommenter la ligne ci-dessous pour débugger traefik. 
+      # Les logs peuvent être visible avec la commande docker compose logs -f traefik
+      - "--log.level=DEBUG"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+    ports:
+      # Remplacer 8000 par le port souhaité, 80 en production par exemple
+      - "80:80"
+      # Le dashboard Traefik est accessible sur le port 8080, décommenter la ligne
+      # ci-dessous et relancer avec docker compose up pour accéder à celui-ci.
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+
+  postgres:
+    image: postgres:14-alpine
+    environment:
+      - POSTGRES_USER=sppnaut
+      - POSTGRES_PASSWORD=sppnaut
+      - POSTGRES_DB=sppnaut
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    ports:
+      # À adapter dans les fichiers .env
+      - 5434:5432
+    healthcheck:
+      # It is not necessary to supply correct user name, password, or database name values to obtain the server status;
+      # however, if incorrect values are provided, the server will log a failed connection attempt.
+      # ref. https://www.postgresql.org/docs/current/app-pg-isready.html
+      test: ["CMD-SHELL", "pg_isready --username sppnaut"]
+      interval: 1s
+      timeout: 1s
+      retries: 50
+
+volumes:
+  pg-data:
+    driver: local
