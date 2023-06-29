@@ -18,7 +18,7 @@ git clone --recurse-submodules git@github.com:betagouv/SPPNautProxy.git
 ## Lancement de la stack
 
 ```sh
-docker compose up --detach
+docker-compose up --detach
 ```
 
 ## Logs et debug
@@ -26,11 +26,11 @@ docker compose up --detach
 Les logs de chaque service peuvent être inspectés
 
 ```sh
-docker compose logs --follow spo
-docker compose logs --follow carting
+docker-compose logs --follow spo
+docker-compose logs --follow carting
 
 # Pour débuguer d'eventuels problème avec le reverse proxy
-docker compose logs --follow proxy
+docker-compose logs --follow proxy
 ```
 
 ## Ports
