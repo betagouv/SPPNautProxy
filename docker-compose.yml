@@ -2,7 +2,6 @@ version: "3.7"
 
 services:
   carting:
-    platform: linux/amd64
     build:
       context: ./SPPNautCarting
     env_file:
