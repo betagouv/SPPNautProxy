@@ -35,8 +35,7 @@ services:
       - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.web.address=:80"
     ports:
-      # Remplacer 8000 par le port souhaité, 80 en production par exemple
-      - "8000:80"
+      - "80:80"
       # Le dashboard Traefik est accessible sur le port 8080, décommenter la ligne
       # ci-dessous et relancer avec docker compose up pour accéder à celui-ci.
       # - "8080:8080"
