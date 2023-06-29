@@ -5,7 +5,10 @@ Ce dépôt contient un fichier de configuration docker compose, illustrant l'uti
 ## Prérequis
 
 1. [Docker et docker compose](https://docs.docker.com) sont requis pour démarrer la stack.
-2. Suivez les instructions des projets SPPNaut Carting et SPO pour créer les fichiers d'environnements pour chaque projet (`.env`).
+1. Cloner les deux projets [SPO](/SPPNautSPO) et [Carting](/SPPNautCarting) au même niveau que `docker-compose.yml` :
+  1. `git clone git@github.com:betagouv/SPPNautCarting.git`
+  1. `git clone git@github.com:betagouv/SPPNautSPO.git`
+1. Suivez les instructions des projets SPPNaut Carting et SPO pour créer les fichiers d'environnements pour chaque projet (`.env`).
 
 ## Récupération du code source
 
