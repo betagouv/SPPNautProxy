@@ -2,13 +2,20 @@
 
 Ce dépôt contient un fichier de configuration docker compose, illustrant l'utiliastion du [reverse proxy Traefik](https://doc.traefik.io/traefik/) pour une utilisation des projets [SPPNaut Carting](/SPPNautCarting) et [SPPNaut SPO](/SPPNautSPO) dans un environnement de production.  
   
-Les projets SPO et Carting sont inclus comme [submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules) à titre d'illustration, mais il est fortement recommandé de se référer aux documentations de ces deux projets avant d'essayer de les éxécuter. 
 
 
 ## Prérequis
 
 1. [Docker et docker compose](https://docs.docker.com) sont requis pour démarrer la stack.  
 2. Suivez les instructions des projets SPPNaut Carting et SPO pour créer les fichiers d'environnements pour chaque projet (`.env`).  
+
+## Récupération du code source
+
+Les projets SPO et Carting sont inclus comme [submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules) à titre d'illustration, mais il est fortement recommandé de se référer aux documentations de ces deux projets avant d'essayer de les éxécuter.  
+
+```
+git clone --recurse-submodules git@github.com:betagouv/SPPNautProxy.git
+```
 
 ## Lancement de la stack
 
