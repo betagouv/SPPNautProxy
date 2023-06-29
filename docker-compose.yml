@@ -3,11 +3,11 @@ version: "3.7"
 services:
   carting:
     platform: linux/amd64
-    build: 
+    build:
       context: ./SPPNautCarting
     env_file:
       - ./SPPNautCarting/.env
-    expose: 
+    expose:
       # Facultatif, car 8000 est exposé dans le Dockerfile
       - 8000
     labels:
@@ -16,11 +16,11 @@ services:
 
   spo:
     platform: linux/amd64
-    build: 
+    build:
       context: ./SPPNautSPO
     env_file:
       - ./SPPNautSPO/PDFGenerator/http/.env
-    expose: 
+    expose:
       # Facultatif, car 8080 est exposé dans le Dockerfile
       - 8080
     labels:
@@ -30,11 +30,11 @@ services:
       postgres:
         condition: service_healthy
 
-  traefik:
+  proxy:
     image: "traefik:v2.4"
     container_name: "traefik"
     command:
-      # Décommenter la ligne ci-dessous pour débugger traefik. 
+      # Décommenter la ligne ci-dessous pour débugger traefik.
       # Les logs peuvent être visible avec la commande docker compose logs -f traefik
       - "--log.level=DEBUG"
       - "--api.insecure=true"
