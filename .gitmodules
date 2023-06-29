@@ -1,9 +1,0 @@
-[submodule "SPPNautCarting"]
-	path = SPPNautCarting
-	url = git@github.com:betagouv/SPPNautCarting.git
-[submodule "SPPNautInterface"]
-	path = SPPNautInterface
-	url = git@github.com:betagouv/SPPNautInterface.git
-[submodule "SPPNautSPO"]
-	path = SPPNautSPO
-	url = git@github.com:betagouv/SPPNautSPO.git
