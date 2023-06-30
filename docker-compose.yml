@@ -19,9 +19,6 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.spo.rule=Host(`spo.sppnaut.shom.fr`)"
-    depends_on:
-      postgres:
-        condition: service_healthy
 
   proxy:
     image: "traefik:v2.4"
@@ -41,27 +38,3 @@ services:
       # - "8080:8080"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
-
-  postgres:
-    image: postgres:14-alpine
-    environment:
-      - POSTGRES_USER=sppnaut
-      - POSTGRES_PASSWORD=sppnaut
-      - POSTGRES_DB=sppnaut
-    volumes:
-      - pg-data:/var/lib/postgresql/data
-    ports:
-      # À adapter dans les fichiers .env
-      - 5434:5432
-    healthcheck:
-      # It is not necessary to supply correct user name, password, or database name values to obtain the server status;
-      # however, if incorrect values are provided, the server will log a failed connection attempt.
-      # ref. https://www.postgresql.org/docs/current/app-pg-isready.html
-      test: ["CMD-SHELL", "pg_isready --username sppnaut"]
-      interval: 1s
-      timeout: 1s
-      retries: 50
-
-volumes:
-  pg-data:
-    driver: local
